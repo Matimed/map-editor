@@ -4,8 +4,8 @@ from enum import IntEnum
 
 class Tile(IntEnum):
     EMPTY = auto()
-    EXAMPLE = auto()
-    EXAMPLE2 = auto()
+    TILE1 = auto()
+    TILE2 = auto()
 
 
     def __str__(self) -> str:
