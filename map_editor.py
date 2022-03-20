@@ -18,6 +18,14 @@ class MapEditor:
 
     
     @staticmethod
+    def dict_to_list(dict):
+        """ Receives a dict and returns a list of elements.
+        """
+
+        return [f'{str(key)} : {str(dict[key])}' for key in dict.keys()]
+
+
+    @staticmethod
     def get_list_of_elements(enum):
         """ Returns the list of all the elements 
             of a given enum and its values.
