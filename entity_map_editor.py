@@ -1,9 +1,9 @@
 import pickle
 import os
-from map_editor import MapEditor
+from src.map_editor import MapEditor
 
 # Change the Entity path if you want.
-from entity import Entity as Entity
+from src.entity import Entity as Entity
 
 
 class EntityMapEditor(MapEditor):

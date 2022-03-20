@@ -1,10 +1,10 @@
 import pickle
 import os
 from lib.matrix import Matrix
-from map_editor import MapEditor
+from src.map_editor import MapEditor
 
 # Change the Tile path if you want.
-from tile import Tile as Tile
+from src.tile import Tile as Tile
 
 
 class TileMapEditor(MapEditor):
