@@ -343,6 +343,7 @@ class Matrix:
         if self.rows: return (len(self.rows), len(self.rows[-1]))
         else: return (0,0)
 
+
     def insert_row(self, index: int, row: list):
         """ Inserts a given row (list of elements) 
             before the position of the given index.
@@ -597,4 +598,3 @@ class Matrix:
         return ' \n'.join(rows)
 
     
-
