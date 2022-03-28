@@ -23,6 +23,9 @@ _$ python3 entity_map_editor.py_
 
 The entity-map will be stored as a .pickle file that will contain a dictionary with positional indexes as key and the enum entities as value. 
 
+### IMPORTANT ADVICE:
+For the correct operation of the maps when importing them from an external program, the reference structure that was used when creating them with the editor must be maintained. This implies that the references of the tiles and entities are in src/references. This location can be modified by the user without major complications.
+
 
 ## License
 

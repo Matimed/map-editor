@@ -3,7 +3,7 @@ import os
 from src.map_editor import MapEditor
 
 # Change the Entity path if you want.
-from src.entity import Entity as Entity
+from src.references import Entity
 
 
 class EntityMapEditor(MapEditor):
