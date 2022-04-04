@@ -1,8 +1,8 @@
 from enum import auto
-from enum import IntEnum
+from enum import Enum
 
 
-class Entity(IntEnum):
+class Entity(Enum):
     ENTITY1 = auto()
     ENTITY2 = auto()
 
