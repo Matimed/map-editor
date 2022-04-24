@@ -94,14 +94,33 @@ class MapEditor:
             returns a Matrix object with its content. 
         """
 
-        if path:
+        return Matrix(self._load_map(path))
+
+
+    def load_entity_map(self, tile_map_path):
+        path = tile_map_path.replace('tiles', 'entities')
+        try: return self._load_map(path), path
+        except: return dict(), path
+
+
+
+    def _load_map(self, path):
+        if path and os.path.exists(path):
             with open(path, 'rb') as f:
-                return Matrix(pickle.load(f))
+                return pickle.load(f)
         else:
             raise AssertionError('path not found')
+
 
     def save(self):
         """ Saves de map in a .pickle file in the maps folder. 
         """
 
         raise NotImplementedError
+
+    
+    def save_map(self, map, path):
+        with open(path, 'wb') as file:
+            pickle.dump(map, file, protocol=pickle.HIGHEST_PROTOCOL)
+        print('Map saved!')
+        

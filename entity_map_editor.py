@@ -17,7 +17,7 @@ class EntityMapEditor(MapEditor):
             try:
                 tile_map_path = self.search_tile_map()
                 self.tile_map = self.load_tile_map(tile_map_path)
-                self.load_entity_map(tile_map_path)
+                self.entity_map, self.path = self.load_entity_map(tile_map_path)
                 os.system('cls||clear')
                 if self.tile_map: break
             except AssertionError as error:
@@ -90,20 +90,8 @@ class EntityMapEditor(MapEditor):
 
     
     def save(self):
-        if self.entity_map:
-
-            with open(self.path, 'wb') as file:
-                pickle.dump(self.entity_map, file, protocol=pickle.HIGHEST_PROTOCOL)
-            print('Map saved!')
-        
+        if self.entity_map: self.save_map(self.entity_map, self.path)
         exit()
-        
-    
-    def load_entity_map(self, tile_map_path):
-        self.path = tile_map_path.replace('tiles', 'entities')
-        if os.path.exists(self.path):
-            with open(self.path, 'rb') as f:
-                self.entity_map = pickle.load(f)
 
       
 EntityMapEditor()  
