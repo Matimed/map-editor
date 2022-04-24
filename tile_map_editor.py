@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pickle
 import os
 from lib.matrix import Matrix

@@ -1,4 +1,5 @@
-import pickle
+#!/usr/bin/env python3
+
 import os
 from src.map_editor import MapEditor
 
