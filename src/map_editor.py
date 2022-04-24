@@ -18,11 +18,31 @@ class MapEditor:
 
     
     @staticmethod
+    def number_list(list):
+        return [f'{list[i]} ({i})' for i in range(len(list))] 
+
+
+    @staticmethod
     def dict_to_list(dict):
-        """ Receives a dict and returns a list of elements.
+        """ Receives a dict and returns a matrix of elements.
         """
 
-        return [f'{str(key)} : {str(dict[key])}' for key in dict.keys()]
+        matrix = Matrix()
+        for key in sorted(dict.keys()):
+            matrix.append_row([key, dict[key]])
+
+        return matrix
+
+
+    @staticmethod
+    def dict_to_matrix(dict, matrix):
+        """ Receives a dict and returns a matrix of elements.
+        """
+
+        for element in dict:
+            matrix.set_element(element, dict[element])
+
+        return matrix
 
 
     @staticmethod
