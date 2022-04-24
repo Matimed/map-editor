@@ -1,5 +1,6 @@
-import pickle
+import json
 import os
+import pickle
 from lib.matrix import Matrix
 
 
@@ -54,6 +55,11 @@ class MapEditor:
         return [f'{str(element.name)} ({str(element.value)})' for element in enum]
 
 
+    @staticmethod
+    def open_json(path):
+        with open(path, 'r') as json_file: return json.load(json_file)
+
+
     def ask_question(self, question: str):
         """ Receives a question, asks it to the user and returns his answer.
             Also catches the user's exit attempts 
@@ -102,6 +108,11 @@ class MapEditor:
         try: return self._load_map(path), path
         except: return dict(), path
 
+
+    def load_character_map(self, tile_map_path):
+        path = tile_map_path.replace('tiles', 'characters')
+        try: return self._load_map(path), path
+        except: return dict(), path
 
 
     def _load_map(self, path):
