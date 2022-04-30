@@ -3,8 +3,9 @@
 import os
 from src.map_editor import MapEditor
 
-# Change the Entity path if you want.
+# Change the paths if you want.
 from src.references import Entity
+from src.references import Tile
 
 
 class EntityMapEditor(MapEditor):
@@ -34,8 +35,8 @@ class EntityMapEditor(MapEditor):
     def main(self):
         while 1: 
             try:
-                mode = self.ask_question('Select an editing mode (1: Lines | 2: Points)')
-                if mode != '1' and mode != '2': AssertionError("invalid option")
+                mode = self.ask_question('Select an editing mode (1: Lines | 2: Points | 3: Fill)')
+                if mode != '1' and mode != '2' and mode != '3': AssertionError("invalid option")
                 else: break
             except Exception as error:
                 print(f'Unexpected {error}. Try again \n')
@@ -48,6 +49,7 @@ class EntityMapEditor(MapEditor):
 
                 if mode == '1': self.edit_by_lines()
                 elif mode == '2': self.edit_by_points()
+                elif mode == '3': self.edit_by_fill()
                 else: AssertionError("invalid option")
 
             except Exception as error:
@@ -100,6 +102,23 @@ class EntityMapEditor(MapEditor):
         if entity == len(entities): self.entity_map.pop((row, column), None)
         else: self.entity_map[(row, column)] = Entity(entity)
         os.system('cls||clear')
+
+    def edit_by_fill(self):
+        print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
+        print(f'Select the tile type to fill:')
+        tile = Tile(int(self.ask_question(self.list_to_str(self.get_list_of_elements(Tile)))))
+        print(f'Select the entity type to replace it with:')
+        entities = self.get_list_of_elements(Entity)
+        entities.append(f"Remove ({len(entities)+1})")
+        entity = int(self.ask_question(self.list_to_str(entities)))
+        for row in range(self.tile_map.length()[0]):
+            for column in range (self.tile_map.length()[1]):
+                element = self.tile_map.get_element((row,column))
+                if element == tile:
+                    if entity == len(entities):
+                        self.entity_map.pop((row,column), None)
+                    else:
+                        self.entity_map[(row,column)] = Entity(entity)
 
 
     def save(self):
