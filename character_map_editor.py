@@ -38,14 +38,22 @@ class CharacterMapEditor(MapEditor):
         while 1:
             try:
                 print("Type 'exit' to save and close the program \n")
-                print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
+                entity_matrix = self.dict_to_matrix(self.entity_map, self.tile_map)
+                print(self.dict_to_matrix(self.character_map, entity_matrix), ' \n')
                 row = int(self.ask_question('In which row is the entity you want to assign? (starting at 0)'))
                 column = int(self.ask_question('In which column is the entity you want to assign? (starting at 0)'))
                 self.entity_map[(row,column)]  # Validate the position.
                 print(f'Select the character you are going to replace with:')
-                character = int(self.ask_question(self.list_to_str(self.number_list(self.characters))))
-                self.entity_map[(row, column)] = self.characters[character]
-                self.character_map[(row, column)] = self.characters[character]
+                
+                characters = self.number_list(self.characters)
+                characters.append(f"Remove ({len(characters)})")
+                character = int(self.ask_question(self.list_to_str(characters)))
+                
+                if character == len(characters)-1:
+                    self.character_map.pop((row, column), None)
+                else:
+                    self.character_map[(row, column)] = self.characters[character]
+                
                 os.system('cls||clear')
 
             except Exception as error:

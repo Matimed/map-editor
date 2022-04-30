@@ -592,7 +592,8 @@ class Matrix:
 
         rows = []
         first_line = ' '*max_length + '  '
-        first_line += '  '.join([str(column).center(max_length) for column in range(len(self.rows[0]))])
+        if self.rows:
+            first_line += '  '.join([str(column).center(max_length) for column in range(len(self.rows[0]))])
         rows.append(first_line)
         for row in range(len(self.rows)):
             line = [str(row).center(max_length)]

@@ -63,37 +63,49 @@ class EntityMapEditor(MapEditor):
         start = int(self.ask_question('From which position do you want to modify? (inclusive)'))
         end = int(self.ask_question('Until which position do you want to modify? (inclusive)'))
         print(f'Select the entity type to replace it with:')
-        entity = int(self.ask_question(self.list_to_str(self.get_list_of_elements(Entity))))
+        entities = self.get_list_of_elements(Entity)
+        entities.append(f"Remove ({len(entities)+1})")
+        entity = int(self.ask_question(self.list_to_str(entities)))
         
-        if axis == 'x':
+        if entity == len(entities):
             for pos in range(start, end + 1): 
-                self.tile_map.get_element((line, pos))  # Validate the position.
-                self.entity_map[(line, pos)] = Entity(entity)
+                if axis == 'x': self.entity_map.pop((line, pos), None)
+                elif axis == 'y': self.entity_map.pop((pos, line), None)
+            
+        else:
+            if axis == 'x':
+                for pos in range(start, end + 1): 
+                    self.tile_map.get_element((line, pos))  # Validate the position.
+                    self.entity_map[(line, pos)] = Entity(entity)
 
-        if axis == 'y':
-            for pos in range(start, end + 1): 
-                self.tile_map.get_element((pos, line))  # Validate the position.
-                self.entity_map[(pos, line)] = Entity(entity)
+            elif axis == 'y':
+                for pos in range(start, end + 1): 
+                    self.tile_map.get_element((pos, line))  # Validate the position.
+                    self.entity_map[(pos, line)] = Entity(entity)
 
         os.system('cls||clear')
 
 
     def edit_by_points(self):
         print(self.tile_map , ' \n')
-        print(self.dict_to_list(self.entity_map), ' \n')
+        if self.entity_map: print(self.dict_to_list(self.entity_map), ' \n')
         row = int(self.ask_question('In which row do you want to add an entity? (starting at 0)'))
         column = int(self.ask_question('In which column do you want to add an entity? (starting at 0)'))
         self.tile_map.get_element((row,column))  # Validate the position.
         print(f'Select the entity type to replace it with:')
-        entity = Entity(int(self.ask_question(self.list_to_str(self.get_list_of_elements(Entity)))))
-        self.entity_map[(row, column)] = entity
+        entities = self.get_list_of_elements(Entity)
+        entities.append(f"Remove ({len(entities)+1})")
+        entity = int(self.ask_question(self.list_to_str(entities)))
+        
+        if entity == len(entities): self.entity_map.pop((row, column), None)
+        else: self.entity_map[(row, column)] = Entity(entity)
         os.system('cls||clear')
 
-    
+
     def save(self):
         if self.entity_map: self.save_map(self.entity_map, self.path)
         exit()
 
-      
+
 EntityMapEditor()  
 

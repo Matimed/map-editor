@@ -40,10 +40,11 @@ class MapEditor:
         """ Receives a dict and returns a matrix of elements.
         """
 
+        new_matrix = matrix.copy()
         for element in dict:
-            matrix.set_element(element, dict[element])
+            new_matrix.set_element(element, dict[element])
 
-        return matrix
+        return new_matrix
 
 
     @staticmethod

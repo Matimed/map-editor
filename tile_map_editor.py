@@ -42,16 +42,16 @@ class TileMapEditor(MapEditor):
 
         os.system('cls||clear')
         while 1:
-            #try:
+            try:
                 print("Type 'exit' to save and close the program \n")
                 print(self.tile_map , ' \n')
                 if mode == '1': self.edit_by_lines()
                 elif mode == '2': self.edit_by_rectangules()
                 else: AssertionError("invalid option")
 
-            #except Exception as error:
-            #    print(f"Unexpected {error}. Try again \n")
-            #    continue
+            except Exception as error:
+                print(f"Unexpected {error}. Try again \n")
+                continue
 
 
     def edit_by_lines(self):
