@@ -17,7 +17,7 @@ class EntityMapEditor(MapEditor):
         os.system('cls||clear')
         while 1:
             try:
-                tile_map_path = self.search_tile_map()
+                tile_map_path = self.select_tile_map()
                 self.tile_map = self.load_tile_map(tile_map_path)
                 self.entity_map, self.path = self.load_entity_map(tile_map_path)
                 os.system('cls||clear')

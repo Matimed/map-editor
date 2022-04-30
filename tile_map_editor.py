@@ -17,7 +17,7 @@ class TileMapEditor(MapEditor):
         while 1:
             try:
                 answ = self.ask_question('Do you want to load an existing tile map? (y | n)')
-                if answ == 'y': self.tile_map = self.load_tile_map(self.search_tile_map())
+                if answ == 'y': self.tile_map = self.load_tile_map(self.select_tile_map())
                 elif answ == 'n': self.create_new_map()
                 else: raise AssertionError('invalid option')
                 
@@ -92,6 +92,10 @@ class TileMapEditor(MapEditor):
     
     def save(self):
         if self.tile_map:
+            try:
+                self.search_tile_map()
+            except:
+                pass
             name = self.ask_question('How do you want your map to be called?')
             if not os.path.exists('maps'):
                 os.makedirs('maps')

@@ -83,15 +83,22 @@ class MapEditor:
         if os.path.exists('maps'):
             with os.scandir('maps') as files:
                 maps = [file for file in files if file.is_file() and file.name.endswith('.tiles.pickle')]
-                if not maps: raise AssertionError('no maps created')
+                if not maps: return
                 
                 print('List of existing maps:')
                 for tile_map in maps:
                     print('  -' + tile_map.name[:-13])
+                return maps
 
-                answ = self.ask_question(' \nWich map do you want to edit?') + '.tiles.pickle'
-                os.system('cls||clear')
-                return next((tile_map.path for tile_map in maps if tile_map.name == answ), None)
+        else: return
+
+
+    def select_tile_map(self):
+        maps = self.search_tile_map()
+        if maps:
+            answ = self.ask_question(' \nWich map do you want to edit?') + '.tiles.pickle'
+            os.system('cls||clear')
+            return next((tile_map.path for tile_map in maps if tile_map.name == answ), None)
 
         else: raise AssertionError('no tile-maps created')
 
