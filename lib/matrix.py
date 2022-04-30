@@ -591,9 +591,13 @@ class Matrix:
             max_length = max(max(map(len, map(str,row))), max_length)
 
         rows = []
-        for row in self.rows:
-            rows.append('  '.join([str(element).ljust(max_length) for element in row]))
-    
+        first_line = ' '*max_length + '  '
+        first_line += '  '.join([str(column).center(max_length) for column in range(len(self.rows[0]))])
+        rows.append(first_line)
+        for row in range(len(self.rows)):
+            line = [str(row).center(max_length)]
+            line.extend([str(element).ljust(max_length) for element in self.rows[row]])
+            rows.append('  '.join(line))
         
         return ' \n'.join(rows)
 

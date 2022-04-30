@@ -38,9 +38,7 @@ class CharacterMapEditor(MapEditor):
         while 1:
             try:
                 print("Type 'exit' to save and close the program \n")
-
-                print(self.tile_map , ' \n')
-                print(self.dict_to_list(self.entity_map), ' \n')
+                print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
                 row = int(self.ask_question('In which row is the entity you want to assign? (starting at 0)'))
                 column = int(self.ask_question('In which column is the entity you want to assign? (starting at 0)'))
                 self.entity_map[(row,column)]  # Validate the position.
