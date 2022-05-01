@@ -46,7 +46,7 @@ class EntityMapEditor(MapEditor):
         while 1:
             try:
                 print("Type 'exit' to save and close the program \n")
-
+                print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
                 if mode == '1': self.edit_by_lines()
                 elif mode == '2': self.edit_by_points()
                 elif mode == '3': self.edit_by_fill()
@@ -58,7 +58,6 @@ class EntityMapEditor(MapEditor):
 
 
     def edit_by_lines(self):
-        print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
         axis = self.ask_question('Which axis of the map you want to modify? (x | y)')
         if axis != 'x' and axis != 'y': raise AssertionError("invalid option")
         line = int(self.ask_question('Wich row/column do you want to modify? (starting at 0)'))
@@ -89,8 +88,6 @@ class EntityMapEditor(MapEditor):
 
 
     def edit_by_points(self):
-        print(self.tile_map , ' \n')
-        if self.entity_map: print(self.dict_to_list(self.entity_map), ' \n')
         row = int(self.ask_question('In which row do you want to add an entity? (starting at 0)'))
         column = int(self.ask_question('In which column do you want to add an entity? (starting at 0)'))
         self.tile_map.get_element((row,column))  # Validate the position.
@@ -104,7 +101,6 @@ class EntityMapEditor(MapEditor):
         os.system('cls||clear')
 
     def edit_by_fill(self):
-        print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
         print(f'Select the tile type to fill:')
         tile = Tile(int(self.ask_question(self.list_to_str(self.get_list_of_elements(Tile)))))
         print(f'Select the entity type to replace it with:')
