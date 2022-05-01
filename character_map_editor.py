@@ -26,8 +26,6 @@ class CharacterMapEditor(MapEditor):
                 self.tile_map = self.load_tile_map(tile_map_path)
                 self.entity_map, path = self.load_entity_map(tile_map_path)
                 self.character_map, self.path = self.load_character_map(tile_map_path)
-                for key in self.character_map:
-                    self.entity_map[key] = self.character_map[key]
                 os.system('cls||clear')
                 if self.tile_map: break
             except ChangeMode: continue
@@ -78,11 +76,10 @@ class CharacterMapEditor(MapEditor):
         os.system('cls||clear')
 
     def save(self):
-        if self.character_map: self.save_map(self.character_map, self.path)
+        if self.character_map: 
+            self.save_map(self.entity_map, self.path)
+        else: self.delete_file(self.path)
         exit()
-        
-    
-
 
       
 CharacterMapEditor()  

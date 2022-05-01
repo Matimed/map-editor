@@ -114,7 +114,10 @@ class EntityMapEditor(MapEditor):
 
 
     def save(self):
-        if self.entity_map: self.save_map(self.entity_map, self.path)
+        if self.entity_map: 
+            self.save_map(self.entity_map, self.path)
+        else: 
+            self.delete_file(self.path)
         exit()
 
 
