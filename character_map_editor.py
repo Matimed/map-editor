@@ -2,12 +2,16 @@
 
 import os
 from src.map_editor import MapEditor
+from src.references import Entity
 
+# Change the paths if you want.
+CHARACTERS_PATH = 'src/references/characters.json'
+CHARACTER_ENTITIES = [Entity.ENTITY1]
 
-class CharacterMapEditor(MapEditor):
+class CharacterMapEditor(MapEditor):    
 
     def __init__(self):
-        self.characters = [name for name in self.open_json('src/references/characters.json')] 
+        self.characters = [name for name in self.open_json(CHARACTERS_PATH)] 
         self.entity_map = dict()
         self.path = str()
         self.tile_map = None
@@ -52,7 +56,9 @@ class CharacterMapEditor(MapEditor):
                 if character == len(characters)-1:
                     self.character_map.pop((row, column), None)
                 else:
-                    self.character_map[(row, column)] = self.characters[character]
+                    if self.entity_map[(row, column)] in CHARACTER_ENTITIES:
+                        self.character_map[(row, column)] = self.characters[character]
+                    else: raise AssertionError('invalid entity for characters')
                 
                 os.system('cls||clear')
 
