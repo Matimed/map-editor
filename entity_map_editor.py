@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+from src.change_mode import ChangeMode
 from src.map_editor import MapEditor
 
 # Change the paths if you want.
@@ -11,9 +12,11 @@ from src.references import Tile
 class EntityMapEditor(MapEditor):
 
     def __init__(self):
+        super().__init__()
         self.entity_map = dict()
         self.path = str()
         self.tile_map = None
+        self.modes = ['Points', 'Lines', 'Fill']
         os.system('cls||clear')
         while 1:
             try:
@@ -22,6 +25,7 @@ class EntityMapEditor(MapEditor):
                 self.entity_map, self.path = self.load_entity_map(tile_map_path)
                 os.system('cls||clear')
                 if self.tile_map: break
+            except ChangeMode: continue
             except AssertionError as error:
                 print(f'Unexpected {error}.')
                 exit()
@@ -33,25 +37,17 @@ class EntityMapEditor(MapEditor):
 
 
     def main(self):
-        while 1: 
-            try:
-                mode = self.ask_question('Select an editing mode (1: Lines | 2: Points | 3: Fill)')
-                if mode != '1' and mode != '2' and mode != '3': AssertionError("invalid option")
-                else: break
-            except Exception as error:
-                print(f'Unexpected {error}. Try again \n')
-                continue
-
         os.system('cls||clear')
         while 1:
             try:
                 print("Type 'exit' to save and close the program \n")
                 print(self.dict_to_matrix(self.entity_map, self.tile_map), ' \n')
-                if mode == '1': self.edit_by_lines()
-                elif mode == '2': self.edit_by_points()
-                elif mode == '3': self.edit_by_fill()
+                if self.mode == 0: self.edit_by_points()
+                elif self.mode == 1: self.edit_by_lines()
+                elif self.mode == 2: self.edit_by_fill()
                 else: AssertionError("invalid option")
 
+            except ChangeMode: continue
             except Exception as error:
                 print(f"Unexpected {error}. Try again \n")
                 continue
@@ -88,8 +84,8 @@ class EntityMapEditor(MapEditor):
 
 
     def edit_by_points(self):
-        row = int(self.ask_question('In which row do you want to add an entity? (starting at 0)'))
-        column = int(self.ask_question('In which column do you want to add an entity? (starting at 0)'))
+        row = int(self.ask_question('In which row do you want to add an entity?'))
+        column = int(self.ask_question('In which column do you want to add an entity?'))
         self.tile_map.get_element((row,column))  # Validate the position.
         print(f'Select the entity type to replace it with:')
         entities = self.get_list_of_elements(Entity)

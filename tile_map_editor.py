@@ -3,6 +3,7 @@
 import pickle
 import os
 from lib.matrix import Matrix
+from src.change_mode import ChangeMode
 from src.map_editor import MapEditor
 
 # Change the Tile path if you want.
@@ -12,7 +13,9 @@ from src.references import Tile
 class TileMapEditor(MapEditor):
 
     def __init__(self):
+        super().__init__()
         self.tile_map = None
+        self.modes = ['Rectangles', 'Lines']
         os.system('cls||clear')
         while 1:
             try:
@@ -23,6 +26,7 @@ class TileMapEditor(MapEditor):
                 
                 os.system('cls||clear')
                 if self.tile_map: break
+            except ChangeMode: continue
             except Exception as error:
                 print(f'Unexpected {error}. Try again \n')
                 continue
@@ -31,24 +35,16 @@ class TileMapEditor(MapEditor):
 
 
     def main(self):
-        while 1: 
-            try:
-                mode = self.ask_question('Select an editing mode (1: Lines | 2: Rects)')
-                if mode != '1' and mode != '2': AssertionError("invalid option")
-                else: break
-            except Exception as error:
-                print(f'Unexpected {error}. Try again \n')
-                continue
-
         os.system('cls||clear')
         while 1:
             try:
                 print("Type 'exit' to save and close the program \n")
                 print(self.tile_map , ' \n')
-                if mode == '1': self.edit_by_lines()
-                elif mode == '2': self.edit_by_rectangules()
-                else: AssertionError("invalid option")
+                if self.mode == 0: self.edit_by_rectangles()
+                elif self.mode == 1: self.edit_by_lines()
+                else: break
 
+            except ChangeMode: continue
             except Exception as error:
                 print(f"Unexpected {error}. Try again \n")
                 continue
@@ -57,7 +53,7 @@ class TileMapEditor(MapEditor):
     def edit_by_lines(self):
         axis = self.ask_question('Which axis of the map you want to modify? (x | y)')
         if axis != 'x' and axis != 'y': raise AssertionError("invalid option")
-        line = int(self.ask_question('Wich row/column do you want to modify? (starting at 0)'))
+        line = int(self.ask_question('Wich row/column do you want to modify?'))
         start = int(self.ask_question('From which position do you want to modify? (inclusive)'))
         end = int(self.ask_question('Until which position do you want to modify? (inclusive)'))
         print(f'Select the tile type to replace it with:')
@@ -68,13 +64,13 @@ class TileMapEditor(MapEditor):
         if axis == 'y':
             for pos in range(start, end + 1): self.tile_map.set_element((pos, line), tile)
 
-    def edit_by_rectangules(self):
-        row = int(self.ask_question('In which row is the first position? (starting at 0)'))
-        column = int(self.ask_question('In which column is the first position? (starting at 0)'))
+    def edit_by_rectangles(self):
+        row = int(self.ask_question('In which row is the first position?'))
+        column = int(self.ask_question('In which column is the first position?'))
         start_point = (row,column)
         self.tile_map.get_element(start_point)  # Validate the position.
-        row = int(self.ask_question('In which row is the last position? (starting at 0)'))
-        column = int(self.ask_question('In which column is the last position? (starting at 0)'))
+        row = int(self.ask_question('In which row is the last position?'))
+        column = int(self.ask_question('In which column is the last position?'))
         end_point = (row,column)
         self.tile_map.get_element(end_point)  # Validate the position.
         print(f'Select the tile type to replace it with:')
