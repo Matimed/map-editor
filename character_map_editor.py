@@ -75,7 +75,7 @@ class CharacterMapEditor(MapEditor):
 
     def save(self):
         if self.character_map: 
-            self.save_map(self.entity_map, self.path)
+            self.save_map(self.character_map, self.path)
         else: self.delete_file(self.path)
         exit()
 
