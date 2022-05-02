@@ -15,7 +15,7 @@ The tile-map will contain a list of lists (in the form of a matrix) with the enu
 Some editors have different editing modes that can be more useful for certain tasks, such as the fill mode of the entity map editor. To switch between these modes type __mode__ in any time.
 
 ## First time configuration
-By changing the imports made in [references.py](src/references.py), you can modify the location of any of the assets needed to run the program.
+By changing the imports made in [references.py](src/references.py), you can modify the location of any of the assets needed to run the program and the file extension of your maps. 
 
 To run the tile-map editor, [Tile](example_assets/tile.py) must be an Enum with all the tiles of your map, making sure the first element is EMPTY.
 

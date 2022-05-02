@@ -3,6 +3,9 @@ import os
 import pickle
 from lib.matrix import Matrix
 from src.change_mode import ChangeMode
+from src.references_file import TILE_MAP_FILE_EXTENSION
+from src.references_file import ENTITY_MAP_FILE_EXTENSION
+from src.references_file import CHARACTERS_MAP_FILE_EXTENSION
 
 
 class MapEditor:
@@ -77,7 +80,7 @@ class MapEditor:
 
         if os.path.exists('maps'):
             with os.scandir('maps') as files:
-                maps = [file for file in files if file.is_file() and file.name.endswith('.tiles.pickle')]
+                maps = [file for file in files if file.is_file() and file.name.endswith(TILE_MAP_FILE_EXTENSION)]
                 if not maps: return
                 
                 print('List of existing maps:')
@@ -118,7 +121,7 @@ class MapEditor:
     def select_tile_map(self):
         maps = self.search_tile_map()
         if maps:
-            answ = self.ask_question('Wich map do you want to edit?') + '.tiles.pickle'
+            answ = self.ask_question('Wich map do you want to edit?') + TILE_MAP_FILE_EXTENSION
             os.system('cls||clear')
             return next((tile_map.path for tile_map in maps if tile_map.name == answ), None)
 
@@ -134,13 +137,13 @@ class MapEditor:
 
 
     def load_entity_map(self, tile_map_path):
-        path = tile_map_path.replace('tiles', 'entities')
+        path = tile_map_path.replace(TILE_MAP_FILE_EXTENSION, ENTITY_MAP_FILE_EXTENSION)
         try: return self._load_map(path), path
         except: return dict(), path
 
 
     def load_character_map(self, tile_map_path):
-        path = tile_map_path.replace('tiles', 'characters')
+        path = tile_map_path.replace(TILE_MAP_FILE_EXTENSION, CHARACTERS_MAP_FILE_EXTENSION)
         try: return self._load_map(path), path
         except: return dict(), path
 

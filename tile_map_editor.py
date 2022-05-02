@@ -6,6 +6,7 @@ from lib.matrix import Matrix
 from src.change_mode import ChangeMode
 from src.map_editor import MapEditor
 from src.references_file import Tile
+from src.references_file import TILE_MAP_FILE_EXTENSION
 
 
 class TileMapEditor(MapEditor):
@@ -94,10 +95,10 @@ class TileMapEditor(MapEditor):
             if not os.path.exists('maps'):
                 os.makedirs('maps')
 
-            if os.path.exists(f'maps/{name}.tiles.pickle'):
+            if os.path.exists(f"maps/{name}{TILE_MAP_FILE_EXTENSION}"):
                 answ = self.ask_question('The map already exists, do you want to replace it? (y | n)')
                 if answ != 'y': return
-            self.tile_map.save_as_pickle(f'maps/{name}.tiles.pickle')
+            self.tile_map.save_as_pickle(f"maps/{name}{TILE_MAP_FILE_EXTENSION}")
             print('Map saved!')
         
         exit()
