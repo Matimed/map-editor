@@ -5,9 +5,7 @@ import os
 from lib.matrix import Matrix
 from src.change_mode import ChangeMode
 from src.map_editor import MapEditor
-
-# Change the Tile path if you want.
-from src.references import Tile
+from src.references_file import Tile
 
 
 class TileMapEditor(MapEditor):

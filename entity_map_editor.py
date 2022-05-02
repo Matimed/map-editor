@@ -3,11 +3,8 @@
 import os
 from src.change_mode import ChangeMode
 from src.map_editor import MapEditor
-
-# Change the paths if you want.
-from src.references import Entity
-from src.references import Tile
-
+from src.references_file import Entity
+from src.references_file import Tile
 
 class EntityMapEditor(MapEditor):
 
